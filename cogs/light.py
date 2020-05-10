@@ -25,6 +25,7 @@ class Light(commands.Cog):
         return bulbProps
 
     async def lightEventMsg(self, ctx, *msg):
+        print(msg)
         if len(msg) == 1:
             embed = discord.Embed(description=msg)
         if len(msg) == 4:
@@ -33,7 +34,8 @@ class Light(commands.Cog):
             blue = msg[3]
             msg = msg[0]
             embed = discord.Embed(description=msg,color=discord.Color.from_rgb(red,green,blue))
-        if not (len(msg) == 4) or (len(msg) == 1):
+        if not (len(msg) == 4) and (len(msg) == 1):
+            print(msg)
             print('wrong amount of args')
             return
         await ctx.send(embed=embed)
