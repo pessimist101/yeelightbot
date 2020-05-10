@@ -26,18 +26,19 @@ class Light(commands.Cog):
 
     async def lightEventMsg(self, ctx, *msg):
         print(msg)
+        if (len(msg) != 4) and (len(msg) != 1):
+            print(msg)
+            print('wrong amount of args')
+            return
         if len(msg) == 1:
-            embed = discord.Embed(description=msg)
+            embed = discord.Embed(description=msg[0])
         if len(msg) == 4:
             red = msg[1]
             green = msg[2]
             blue = msg[3]
             msg = msg[0]
             embed = discord.Embed(description=msg,color=discord.Color.from_rgb(red,green,blue))
-        if not (len(msg) == 4) and (len(msg) == 1):
-            print(msg)
-            print('wrong amount of args')
-            return
+
         await ctx.send(embed=embed)
         return
 
@@ -164,7 +165,7 @@ class Light(commands.Cog):
             except ValueError as err:
                 await ctx.send(err)
                 return
-        if (len(arg) == 1) and (not arg[0].isdigit()): # must be colour name
+        if (len(arg) == 1) and (not arg[0].isdigit()) and (not arg[0].startswith('#')): # must be colour name
             try:
                 red, green, blue = webcolors.name_to_rgb(arg[0], spec='css3')
             except ValueError as err:
