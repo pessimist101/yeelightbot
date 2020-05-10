@@ -24,9 +24,18 @@ class Light(commands.Cog):
         bulbProps = bulb.get_properties()
         return bulbProps
 
-
-    async def lightEventMsg(self, ctx, msg):
-        embed = discord.Embed(description=msg)
+    async def lightEventMsg(self, ctx, *msg):
+        if len(msg) == 1:
+            embed = discord.Embed(description=msg)
+        if len(msg) == 4:
+            red = msg[1]
+            green = msg[2]
+            blue = msg[3]
+            msg = msg[0]
+            embed = discord.Embed(description=msg,color=discord.Color.from_rgb(red,green,blue))
+        if not (len(msg) == 4) or (len(msg) == 1):
+            print('wrong amount of args')
+            return
         await ctx.send(embed=embed)
         return
 
@@ -168,7 +177,7 @@ class Light(commands.Cog):
                 return
             names.append(light['name'])
         successMsg = ", ".join(names)
-        await self.lightEventMsg(ctx, f'Set colour to \({red}, {green}, {blue}\) on **{successMsg}**')
+        await self.lightEventMsg(ctx, f'Set colour to \({red}, {green}, {blue}\) on **{successMsg}**', red, green, blue)
 
     @commands.command()
     async def disco(self, ctx):
