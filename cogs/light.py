@@ -138,23 +138,22 @@ class Light(commands.Cog):
 
     @commands.command()
     async def colour(self, ctx, *arg):
-        if len(arg.split(' ')) > 3:
+        if len(arg) > 3:
             await ctx.send('You did something wrong fam')
             return
-        if len(arg.split(' ')) == 3: # must be rgb numbers!
-            argsList = arg.split(' ')
+        if len(arg) == 3: # must be rgb numbers!
             try:
-                red,green,blue = [int(arg) for arg in argsList]
+                red,green,blue = arg
             except ValueError as err:
                 await ctx.send(err)
                 return
-        if (arg.count(' ') == 0) and (arg.startswith('#')): # this is a hex value
+        if (len(arg) == 1) and (arg[0].startswith('#')): # this is a hex value
             try:
-                red, blue, green = webcolors.hex_to_rgb(arg)
+                red, blue, green = webcolors.hex_to_rgb(arg[0])
             except ValueError as err:
                 await ctx.send(err)
                 return
-        if (arg.count(' ') == 0) and (not arg.isdigit()):
+        if (len(arg) == 1) and (not arg[0].isdigit()): # must be colour name
             try:
                 red, green, blue = webcolors.name_to_rgb(arg, spec='css3')
             except ValueError as err:
