@@ -143,7 +143,7 @@ class Light(commands.Cog):
             return
         if len(arg) == 3: # must be rgb numbers!
             try:
-                red,green,blue = arg
+                red,green,blue = [int(args) for args in arg] # passes RGB as ints
             except ValueError as err:
                 await ctx.send(err)
                 return
