@@ -155,7 +155,8 @@ class Light(commands.Cog):
                 return
         if (len(arg) == 1) and (not arg[0].isdigit()): # must be colour name
             try:
-                red, green, blue = webcolors.name_to_rgb(arg, spec='css3')
+                listArg = list(arg) # nametorgb attempts to lower arg, so needs to /not/ be a tuple
+                red, green, blue = webcolors.name_to_rgb(listArg, spec='css3')
             except ValueError as err:
                 await ctx.send(err)
                 return
