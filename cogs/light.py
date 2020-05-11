@@ -121,7 +121,7 @@ class Light(commands.Cog):
                 return
             names.append(light['name'])
         successMsg = ", ".join(names)
-        await self.lightEventMsg(ctx, f'Set brightness **{successMsg}** to {str(arg)}')
+        await self.lightEventMsg(ctx, f'Set brightness on **{successMsg}** to {str(arg)}')
 
     @commands.command()
     async def hsv(self, ctx, *arg):
